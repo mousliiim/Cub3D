@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:37:51 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/11/10 23:27:00 by mmourdal         ###   ########.fr       */
+/*   Updated: 2023/04/04 19:25:53 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,33 @@
  * l'élément *s2 et la chaine renvoyer et alloué dynamiquement avec malloc.
 */
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *buffer, char *str)
 {
-	size_t	i;
-	size_t	len;
-	char	*str;
+	char	*mstr;
+	int		i;
+	int		j;
 
-	if (!s1 || !s2)
+	if (!buffer)
+	{
+		buffer = (char *)malloc(sizeof(char) * 1);
+		if (!buffer)
+			return (NULL);
+		buffer[0] = '\0';
+	}
+	if (!str || !buffer)
 		return (NULL);
-	len = ft_strlen((char *)s1) + ft_strlen((char *)s2);
-	str = (char *)malloc(sizeof(char) * len + 1);
-	if (!str)
+	mstr = malloc(sizeof(char) * (ft_strlen(buffer) + ft_strlen(str) + 1));
+	if (!mstr)
 		return (NULL);
-	i = 0;
-	while (*s1)
-		str[i++] = *s1++;
-	while (*s2)
-		str[i++] = *s2++;
-	str[i] = '\0';
-	return (str);
+	i = -1;
+	while (buffer[++i])
+		mstr[i] = buffer[i];
+	j = 0;
+	while (str[j])
+		mstr[i++] = str[j++];
+	mstr[i] = '\0';
+	free(buffer);
+	return (mstr);
 }
 
 /*int	main(void)

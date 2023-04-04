@@ -6,7 +6,7 @@
 #    By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/02 17:59:57 by mmourdal          #+#    #+#              #
-#    Updated: 2023/04/02 19:54:49 by mmourdal         ###   ########.fr        #
+#    Updated: 2023/04/04 16:55:33 by mmourdal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ PRINT_NAME = @printf "\n$(RED)%19s$(ART_NAME_1)%18s$(ART_NAME_2)%18s$(ART_NAME_3
 PARSE_DIR	= parse
 
 SRC_FILES	=	$(addprefix parse/, \
-				main.c) \
+				read_map.c	utils.c) \
+				main.c \
 
 ################################################################################
 #                                  OBJETS                                      #

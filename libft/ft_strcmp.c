@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/02 18:48:00 by mmourdal          #+#    #+#             */
-/*   Updated: 2023/04/02 19:52:17 by mmourdal         ###   ########.fr       */
+/*   Created: 2023/04/04 18:58:16 by mmourdal          #+#    #+#             */
+/*   Updated: 2023/04/04 18:59:01 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "libft.h"
 
-int main(int argc, char **argv)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	(void)argc;
-	printf("-> %d\n\n", ft_atoi(argv[1]));
-	ft_putnbr_fd(ft_atoi(argv[1]), 1);
+	while (*s1 && *s2 && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+	}
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
