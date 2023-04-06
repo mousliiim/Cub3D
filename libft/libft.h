@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 22:03:03 by mmourdal          #+#    #+#             */
-/*   Updated: 2023/04/04 19:25:50 by mmourdal         ###   ########.fr       */
+/*   Updated: 2023/04/05 00:51:45 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdio.h>
 # include <stdarg.h>
 # define HEX_BASE "0123456789abcdef0123456789ABCDEF"
+# define BUFFER_SIZE 42
 
 typedef struct s_list
 {
@@ -28,6 +29,13 @@ typedef struct s_list
 
 typedef unsigned long	t_uintptr;
 
+char	*get_next_line(int fd, int free_buffer);
+char	*ft_get_line(char *buffer);
+char	*ft_strjoin_gnl(char *buffer, char *str);
+char	*ft_read_next_buffer(char *buffer);
+size_t	ft_strlen_g(char *str);
+char	*ft_read_buffer(int fd, char *buffer);
+char	*ft_strchr_gnl(char *s, int c);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void*));
