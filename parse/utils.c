@@ -6,25 +6,11 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 16:12:06 by mmourdal          #+#    #+#             */
-/*   Updated: 2023/04/06 03:29:38 by mmourdal         ###   ########.fr       */
+/*   Updated: 2023/04/07 03:15:45 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
-
-void	ft_free_double_array(char **array)
-{
-	int	i;
-
-	i = 0;
-	if (!*array || !array)
-		return ;
-	while (array[i])
-	{
-		free(array[i]);
-		i++;
-	}
-}
 
 void	ft_print_error(const int type_error)
 {

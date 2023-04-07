@@ -6,7 +6,7 @@
 #    By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/02 17:59:57 by mmourdal          #+#    #+#              #
-#    Updated: 2023/04/04 22:34:47 by mmourdal         ###   ########.fr        #
+#    Updated: 2023/04/07 03:21:04 by mmourdal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,9 @@ PARSE_DIR	= parse
 
 SRC_FILES	=	$(addprefix parse/, \
 				read_map.c	utils.c parsing_map.c) \
-				main.c \
+				$(addprefix free/, \
+				free.c) \
+				main.c	tmp_utils.c\
 
 ################################################################################
 #                                  OBJETS                                      #
@@ -86,6 +88,9 @@ $(OBJS_DIR) :
 	@sleep 0.2
 	@printf "$(RED_TWO)%21s Création du dossier $(END)$(WHITE)$(OBJS_DIR)/$(PARSE_DIR)...\n"
 	@mkdir $(OBJS_DIR)/$(PARSE_DIR)
+	@sleep 0.2
+	@printf "$(RED_TWO)%21s Création du dossier $(END)$(WHITE)$(OBJS_DIR)/free...\n"
+	@mkdir $(OBJS_DIR)/free
 	@sleep 0.2
 	@printf "$(RED_TWO)%20s Création des dossiers $(END)$(BLINK)$(WHITE)objets terminée$(END)\n\n"
 	@sleep 0.9

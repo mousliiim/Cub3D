@@ -6,13 +6,13 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 15:32:16 by mmourdal          #+#    #+#             */
-/*   Updated: 2023/04/06 03:37:46 by mmourdal         ###   ########.fr       */
+/*   Updated: 2023/04/06 23:39:43 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-char *str_without_space(char *str)
+char	*str_without_space(char *str)
 {
 	char	*new_str;
 	size_t	i;

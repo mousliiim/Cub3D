@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 19:34:22 by mmourdal          #+#    #+#             */
-/*   Updated: 2023/04/06 03:13:51 by mmourdal         ###   ########.fr       */
+/*   Updated: 2023/04/07 03:59:09 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,19 @@
 # define D 100
 # define S 115
 
+typedef enum e_texture
+{
+	T_NO,
+	T_SO,
+	T_WE,
+	T_EA,
+	RGB_F,
+	RGB_C
+}	t_texture;
+
 typedef struct s_info_map
 {
-	char	*texture[4];
+	char	*texture[5];
 	char	*map_info[7];
 	int		type_error;
 	int		floor_color[3];
@@ -86,7 +96,13 @@ void	ft_free_double_array(char **array);
 				/** IN FILE PARSING_MAP.C **/
 int		get_info_map(const char *map_name, t_info_map *info_parse);
 
+/**************** IN DIRECTORY FREE *****************/
+				/** IN FILE FREE.C **/
+void	ft_free_double_array(char **array);
+void	ft_free_split(char **array);
+void	ft_free(char **str, int i);
 
 
-void	display_map(char **map);
+/************ TMP UTILS NEED TO DELETE **************/
+void	display(char **map);
 #endif

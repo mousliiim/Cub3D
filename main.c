@@ -6,13 +6,13 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 15:31:22 by mmourdal          #+#    #+#             */
-/*   Updated: 2023/04/06 03:42:29 by mmourdal         ###   ########.fr       */
+/*   Updated: 2023/04/07 04:01:39 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/cub3D.h"
 
-int	file_name_check(char *map_name)
+static int	file_name_check(char *map_name)
 {
 	if (!(ft_strcmp(map_name + (ft_strlen(map_name) - 4), ".cub") == 0)
 		|| !ft_strcmp(map_name, ".cub"))
@@ -21,7 +21,7 @@ int	file_name_check(char *map_name)
 		return (SUCCESS);
 }
 
-int	start_parsing(const char *map_name, t_info_map *info_parse)
+static int	start_parsing(const char *map_name, t_info_map *info_parse)
 {
 	if (!get_info_map(map_name, info_parse))
 		return (PARSING_KO);
@@ -40,5 +40,5 @@ int	main(int argc, char **argv, char **env)
 		return (ft_print_error(ARG_ERROR), FAILURE);
 	if (!start_parsing(argv[1], &info_parse))
 		return (ft_print_error(info_parse.type_error), FAILURE);
-	// ft_free_double_array(info_parse.map_info); POUR VOIR SI TOUT EST FREE
+	// ft_free_double_array(info_parse.map_info); // free map_info
 }
