@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 22:34:49 by mmourdal          #+#    #+#             */
-/*   Updated: 2023/04/07 04:03:12 by mmourdal         ###   ########.fr       */
+/*   Updated: 2023/04/08 17:32:20 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,42 @@ int	check_tab_value(int *tab)
 	return (SUCCESS);
 }
 
+int	rgb_color_check(char *str, t_info_map *info_parse, int f_or_c)
+{
+	char	**array;
+	int		i;
+	int		j;
+
+	(void)info_parse;
+	array = ft_split(str, ',', &i);
+	if (!array)
+		return (FAILURE);
+	if (i != 3)
+		return (ft_free_split(array), FAILURE);
+	i = 0;
+	while (array[i])
+	{
+		j = 0;
+		while (array[i][j])
+		{
+			if (array[i][j] == '\n')
+				break ;
+			if (!ft_isdigit(array[i][j]))
+				return (ft_free_split(array), FAILURE);
+			j++;
+		}
+		if (ft_atoi(array[i]) > 255 || ft_atoi(array[i]) < 0)
+			return (ft_free_split(array), FAILURE);
+		if (f_or_c == 4)
+			info_parse->floor_color[i] = ft_atoi(array[i]);
+		else
+			info_parse->ceil_color[i] = ft_atoi(array[i]);
+		i++;
+	}
+	printf("R = %s | G = %s | B = %s\n", array[0], array[1], array[2]);
+	return (SUCCESS);
+}
+
 int	take_value_texture(char **array, t_info_map *info_parse)
 {
 	char	*path;
@@ -58,7 +94,7 @@ int	take_value_texture(char **array, t_info_map *info_parse)
 	if (!array || !*array)
 		return (FAILURE);
 	if (check_key(array[0]) == 4 || check_key(array[0]) == 5)
-		return (1);
+		return (rgb_color_check(array[1], info_parse, check_key(array[0])));
 	path = NULL;
 	i = 0;
 	while (array[++i])

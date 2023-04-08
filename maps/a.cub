@@ -7,14 +7,14 @@ EA     ./textures/greystone.xpm
 
 
 
-F              255,255,255
+F              149,255,255
 
 SO 			./textures/redbrick.xpm
 
 
 
 
-C                                255,255,255
+C                                121,209,255
 
 XXXXXXXXXXXXXXXXXXXXXXX
 X111111111111111111111X

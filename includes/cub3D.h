@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 19:34:22 by mmourdal          #+#    #+#             */
-/*   Updated: 2023/04/07 03:59:09 by mmourdal         ###   ########.fr       */
+/*   Updated: 2023/04/08 17:08:24 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct s_info_map
 	char	*map_info[7];
 	int		type_error;
 	int		floor_color[3];
-	int		ceiling_color[3];
+	int		ceil_color[3];
 }	t_info_map;
 
 typedef struct s_start_game
