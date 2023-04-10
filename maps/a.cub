@@ -1,25 +1,11 @@
-NO   ./textures/eagle.xpm
+NO ./path_to_the_north_texture
+SO ./path_to_the_south_texture
+WE ./path_to_the_west_texture
+EA ./path_to_the_east_texture
+F 220,100,0
+C 225,30,0
 
 
-			    
-    WE      ./textures/purplestone.xpm
-EA     ./textures/greystone.xpm
-
-
-
-F              149,255,255
-
-SO 			./textures/redbrick.xpm
-
-
-
-
-C                                121,209,255
-
-XXXXXXXXXXXXXXXXXXXXXXX
-X111111111111111111111X
-X1000001 111XXXXXXXXXXX
-X1111111 111XXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXX
-
-// MAP POUR PARSER SI CORRECT VERIFIER SI LES ESPACES SONT ENTOURER D'ESPACE OU DE 1 SI C FAUX MAP INVALIDE
+111
+1N1
+111

@@ -6,84 +6,11 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 22:34:49 by mmourdal          #+#    #+#             */
-/*   Updated: 2023/04/08 17:32:20 by mmourdal         ###   ########.fr       */
+/*   Updated: 2023/04/10 02:11:22 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
-
-int	check_key(char *str)
-{
-	char	*tmp;
-
-	if (!str)
-		return (-1);
-	tmp = ft_strtrim(str, " ");
-	if (ft_strncmp(str, "NO", ft_strlen(tmp)) == SAME)
-		return (free(tmp), 0);
-	else if (ft_strncmp(str, "SO", ft_strlen(tmp)) == SAME)
-		return (free(tmp), 1);
-	else if (ft_strncmp(str, "WE", ft_strlen(tmp)) == SAME)
-		return (free(tmp), 2);
-	else if (ft_strncmp(str, "EA", ft_strlen(tmp)) == SAME)
-		return (free(tmp), 3);
-	else if (ft_strncmp(str, "F", ft_strlen(tmp)) == SAME)
-		return (free(tmp), 4);
-	else if (ft_strncmp(str, "C", ft_strlen(tmp)) == SAME)
-		return (free(tmp), 5);
-	else
-		return (free(tmp), -1);
-}
-
-int	check_tab_value(int *tab)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < 6)
-	{
-		if (tab[i] == 0)
-			return (FAILURE);
-		i++;
-	}
-	return (SUCCESS);
-}
-
-int	rgb_color_check(char *str, t_info_map *info_parse, int f_or_c)
-{
-	char	**array;
-	int		i;
-	int		j;
-
-	(void)info_parse;
-	array = ft_split(str, ',', &i);
-	if (!array)
-		return (FAILURE);
-	if (i != 3)
-		return (ft_free_split(array), FAILURE);
-	i = 0;
-	while (array[i])
-	{
-		j = 0;
-		while (array[i][j])
-		{
-			if (array[i][j] == '\n')
-				break ;
-			if (!ft_isdigit(array[i][j]))
-				return (ft_free_split(array), FAILURE);
-			j++;
-		}
-		if (ft_atoi(array[i]) > 255 || ft_atoi(array[i]) < 0)
-			return (ft_free_split(array), FAILURE);
-		if (f_or_c == 4)
-			info_parse->floor_color[i] = ft_atoi(array[i]);
-		else
-			info_parse->ceil_color[i] = ft_atoi(array[i]);
-		i++;
-	}
-	printf("R = %s | G = %s | B = %s\n", array[0], array[1], array[2]);
-	return (SUCCESS);
-}
 
 int	take_value_texture(char **array, t_info_map *info_parse)
 {
@@ -111,7 +38,7 @@ int	take_value_texture(char **array, t_info_map *info_parse)
 		}
 	}
 	info_parse->texture[check_key(array[0])] = path;
-	return (PARSING_OK);
+	return (SUCCESS);
 }
 
 int	cut_key_value(t_info_map *info_parse)
@@ -128,32 +55,61 @@ int	cut_key_value(t_info_map *info_parse)
 		if (!array)
 			return (FAILURE);
 		if (j != 2)
-			return (ft_free_split(array), ft_free(info_parse->texture, i),
+			return (ft_free_texture(info_parse->texture), ft_free_split(array),
 				info_parse->type_error = MAP_ERROR, FAILURE);
 		if (check_key(array[0]) != -1)
 		{
 			if (tab_check[check_key(array[0])] == 1)
-				return (ft_free_split(array),
-					info_parse->type_error = MAP_ERROR, PARSING_KO);
+				return (ft_free_texture(info_parse->texture), ft_free_split(array),
+					info_parse->type_error = MAP_ERROR, FAILURE);
 			else if (tab_check[check_key(array[0])] == 0)
 				tab_check[check_key(array[0])] = 1;
 		}
 		if (!take_value_texture(array, info_parse))
-			return (info_parse->type_error = MAP_ERROR, PARSING_KO);
+			return (ft_free_texture(info_parse->texture), ft_free_split(array),
+				info_parse->type_error = MAP_ERROR, FAILURE);
 		ft_free_split(array);
 	}
 	if (!check_tab_value(tab_check))
-		return (info_parse->type_error = MAP_ERROR, PARSING_KO);
+		return (info_parse->type_error = MAP_ERROR, FAILURE);
 	info_parse->texture[4] = NULL;
-	// ft_free_double_array(info_parse->texture); // FREE POUR TEST TEXTURE
-	return (PARSING_OK);
+	return (SUCCESS);
+}
+
+int	size_of_map(t_game *game)
+{
+	size_t	x;
+	size_t	y;
+
+	x = 0;
+	y = 0;
+	if (!game->map || !*game->map)
+		return (FAILURE);
+	while (game->map[y])
+	{
+		x = 0;
+		while (game->map[y][x] && game->map[y][x] != '\n')
+			x++;
+		y++;
+	}
+	if (x < 3 || y < 3)
+		return (FAILURE);
+	game->map_size[HEIGHT] = x;
+	game->map_size[WIDTH] = y;
+	return (SUCCESS);
+}
+
+int	check_map(t_game *game, t_info_map *info_parse)
+{
+	if (!size_of_map(game))
+		return (info_parse->type_error = MAP_ERROR, FAILURE);
+	// if (!check_map_char(game)) // A FAIRE POUR LA MAP
+	// 	return (FAILURE);
+	return (SUCCESS);
 }
 
 int	key_and_value_check(t_info_map *info_parse)
 {
-	size_t	i;
-
-	i = 0;
 	if (!cut_key_value(info_parse))
 		return (FAILURE);
 	return (SUCCESS);
@@ -165,8 +121,23 @@ int	get_info_map(const char *map_name, t_info_map *info_parse)
 		return (ft_free_double_array(info_parse->map_info), FAILURE);
 	if (!key_and_value_check(info_parse))
 		return (ft_free_double_array(info_parse->map_info), FAILURE);
-	display(info_parse->map_info);
-	return (PARSING_OK);
+	return (SUCCESS);
 }
 
-// PENSER A FREE MAP_INFO A LA FIN DU PROGRAMME OU SI ERREUR.
+int	get_map(const char *map_name, t_game *game, t_info_map *info_parse)
+{
+	// display(info_parse->map_info); // AFFICHAGE INFO A SUPPRIMER
+	ft_free_double_array(info_parse->map_info);
+	if (!ft_read_map(map_name, game, info_parse))
+		return (FAILURE);
+	if (!check_map(game, info_parse))
+		return (FAILURE);
+	display(game->map); // AFFICHAGE MAP A SUPPRIMER
+	return (SUCCESS);
+}
+
+	// A FREE POUR LE PARSING DE LA MAP
+	// ft_free_double_array(info_parse->texture); // free texture
+	// 	ft_free_double_array(game->map); // free map
+	// 	free(game->map); // free map
+	// 	get_next_line(-1, 1); // free get

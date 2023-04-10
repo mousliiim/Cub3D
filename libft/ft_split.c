@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 22:17:23 by mmourdal          #+#    #+#             */
-/*   Updated: 2023/04/08 16:54:17 by mmourdal         ###   ########.fr       */
+/*   Updated: 2023/04/08 18:19:48 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 
 static int	is_c(char chr, char c)
 {
-	if (chr == c || c == '\t')
+	if (chr == c || c == '\t' || c == '\n' || c == '\v'
+		|| c == '\f' || c == '\r')
 		return (1);
 	return (0);
 }
