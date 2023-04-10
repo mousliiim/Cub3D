@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 15:32:16 by mmourdal          #+#    #+#             */
-/*   Updated: 2023/04/10 01:27:02 by mmourdal         ###   ########.fr       */
+/*   Updated: 2023/04/10 19:47:35 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	ft_count_line_of_file(int fd)
 	return (i);
 }
 
-int	ft_read_map_info(const char *map_path, t_info_map *info_parse)
+int	ft_read_map_info(const char *map_path, t_info_map *info)
 {
 	size_t		i;
 	char		*line;
@@ -83,27 +83,27 @@ int	ft_read_map_info(const char *map_path, t_info_map *info_parse)
 
 	fd = open(map_path, O_RDONLY);
 	if (fd == -1)
-		return (info_parse->type_error = MAP_ERROR, FAILURE);
+		return (info->error = MAP_ERROR, FAILURE);
 	i = 0;
 	line = get_next_line(fd, 0);
 	while (line && i < 6)
 	{
 		if (!ft_empty_line(line))
-			info_parse->map_info[i++] = str_without_space(line);
+			info->map_info[i++] = str_without_space(line);
 		else
 			free(line);
 		if (i == 6)
 			break ;
 		line = get_next_line(fd, 0);
 	}
-	info_parse->map_info[i] = NULL;
+	info->map_info[i] = NULL;
 	if (i != 6)
-		return (free(line), close(fd), info_parse->type_error = MAP_ERROR, 0);
-	info_parse->fd = fd;
+		return (free(line), close(fd), info->error = MAP_ERROR, 0);
+	info->fd = fd;
 	return (SUCCESS);
 }
 
-int	ft_read_map(const char *map_path, t_game *game, t_info_map *info_parse)
+int	ft_read_map(const char *map_path, t_game *game, t_info_map *info)
 {
 	int		fd_tmp;
 	int		fd;
@@ -112,9 +112,9 @@ int	ft_read_map(const char *map_path, t_game *game, t_info_map *info_parse)
 	size_t	i;
 
 	fd_tmp = open(map_path, O_RDONLY);
-	fd = info_parse->fd;
+	fd = info->fd;
 	if (fd == -1 || fd_tmp == -1)
-		return (info_parse->type_error = MAP_ERROR, FAILURE);
+		return (info->error = MAP_ERROR, FAILURE);
 	game->map = ft_calloc(ft_count_line_of_file(fd_tmp) + 1, sizeof(char *));
 	close(fd_tmp);
 	if (!game->map)
@@ -132,15 +132,13 @@ int	ft_read_map(const char *map_path, t_game *game, t_info_map *info_parse)
 			flag = 1;
 		}
 		else if (flag && ft_empty_line(line))
-			return (free(line), close(fd), info_parse->type_error = MAP_ERROR, FAILURE);
+			return (free(line), close(fd), info->error = MAP_ERROR, FAILURE);
 		else
 			free(line);
 		line = get_next_line(fd, 0);
 	}
-	// get_next_line(FREE_SR_GNL, 1);
 	game->map[i] = NULL;
 	free(line);
 	close (fd);
-	// display(game->map);
 	return (SUCCESS);
 }

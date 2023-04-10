@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 19:34:22 by mmourdal          #+#    #+#             */
-/*   Updated: 2023/04/10 02:08:25 by mmourdal         ###   ########.fr       */
+/*   Updated: 2023/04/10 19:51:35 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,10 @@
 # define C 0
 # define HEIGHT 0
 # define WIDTH 1
+# define NORTH 'N'
+# define SOUTH 'S'
+# define EAST 'E'
+# define WEST 'W'
 
 # define ESC 65307
 # define W 119
@@ -76,7 +80,7 @@ typedef struct s_info_map
 	int		floor_color[3];
 	int		ceil_color[3];
 	int		fd;
-	int		type_error;
+	int		error;
 }	t_info_map;
 
 typedef struct s_game
@@ -85,23 +89,26 @@ typedef struct s_game
 	void		*win;
 	void		*img;
 	char		**map;
-	int			map_size[2];
+	size_t		map_size[2];
+	size_t		player_pos[2];
+	char		player_dir;
 	t_info_map	*info_map;
 }	t_game;
 
 /**************** IN DIRECTORY PARSE *****************/
 				/** IN FILE READ_MAP.C **/
-int		ft_read_map_info(const char *map_path, t_info_map *info_parse);
-int		ft_read_map(const char *map_path, t_game *game, t_info_map *info_parse);
+int		ft_read_map_info(const char *map_path, t_info_map *info);
+int		ft_read_map(const char *map_path, t_game *game, t_info_map *info);
 				/** IN FILE UTILS.C **/
-void	ft_print_error(const int type_error);
+void	ft_print_error(const int error);
 int		ft_isspace(char c);
-int		rgb_color_check(char *str, t_info_map *info_parse, int choice);
+int		rgb_color_check(char *str, t_info_map *info, int choice, int j);
 int		check_tab_value(int *tab);
 int		check_key(char *str);
+				/** IN FILE PARSING_MAP_INFO.C **/
+int		get_info_map(const char *map_name, t_info_map *info);
 				/** IN FILE PARSING_MAP.C **/
-int		get_info_map(const char *map_name, t_info_map *info_parse);
-int		get_map(const char *map_name, t_game *game, t_info_map *info_parse);
+int		get_map(const char *map_name, t_game *game, t_info_map *info);
 /**************** IN DIRECTORY FREE *****************/
 				/** IN FILE FREE.C **/
 void	ft_free_double_array(char **array);

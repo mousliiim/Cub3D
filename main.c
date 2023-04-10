@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 15:31:22 by mmourdal          #+#    #+#             */
-/*   Updated: 2023/04/10 01:22:34 by mmourdal         ###   ########.fr       */
+/*   Updated: 2023/04/10 19:47:34 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,15 @@ static int	start_parsing(const char *map_name, t_info_map *info, t_game *game)
 
 int	main(int argc, char **argv, char **env)
 {
-	static t_info_map	info_parse = {0};
+	static t_info_map	info = {0};
 	static t_game		game = {0};
 
+	game.info_map = &info;
 	if (!env || !*env)
 		return (ft_print_error(ENV_ERROR), FAILURE);
 	if (argc != 2 || !file_name_check(argv[1]))
 		return (ft_print_error(ARG_ERROR), FAILURE);
-	if (!start_parsing(argv[1], &info_parse, &game))
-		return (ft_print_error(info_parse.type_error), FAILURE);
+	if (!start_parsing(argv[1], &info, &game))
+		return (ft_print_error(info.error), FAILURE);
 	return (SUCCESS);
 }
