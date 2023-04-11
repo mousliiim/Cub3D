@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 16:12:06 by mmourdal          #+#    #+#             */
-/*   Updated: 2023/04/10 19:55:46 by mmourdal         ###   ########.fr       */
+/*   Updated: 2023/04/10 21:58:21 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,23 @@
 
 int	check_key(char *str)
 {
-	char	*tmp;
 
 	if (!str)
 		return (-1);
-	tmp = ft_strtrim(str, " ");
-	if (ft_strncmp(str, "NO", ft_strlen(tmp)) == SAME)
-		return (free(tmp), 0);
-	else if (ft_strncmp(str, "SO", ft_strlen(tmp)) == SAME)
-		return (free(tmp), 1);
-	else if (ft_strncmp(str, "WE", ft_strlen(tmp)) == SAME)
-		return (free(tmp), 2);
-	else if (ft_strncmp(str, "EA", ft_strlen(tmp)) == SAME)
-		return (free(tmp), 3);
-	else if (ft_strncmp(str, "F", ft_strlen(tmp)) == SAME)
-		return (free(tmp), 4);
-	else if (ft_strncmp(str, "C", ft_strlen(tmp)) == SAME)
-		return (free(tmp), 5);
+	if (ft_strncmp(str, "NO", 2) == SAME)
+		return (0);
+	else if (ft_strncmp(str, "SO", 2) == SAME)
+		return (1);
+	else if (ft_strncmp(str, "WE", 2) == SAME)
+		return (2);
+	else if (ft_strncmp(str, "EA", 2) == SAME)
+		return (3);
+	else if (ft_strncmp(str, "F", 1) == SAME)
+		return (4);
+	else if (ft_strncmp(str, "C", 1) == SAME)
+		return (5);
 	else
-		return (free(tmp), -1);
+		return (-1);
 }
 
 int	check_tab_value(int *tab)

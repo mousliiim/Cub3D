@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 19:34:22 by mmourdal          #+#    #+#             */
-/*   Updated: 2023/04/10 19:51:35 by mmourdal         ###   ########.fr       */
+/*   Updated: 2023/04/11 00:30:54 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct s_game
 	void		*win;
 	void		*img;
 	char		**map;
+	char		**map_copy;
 	size_t		map_size[2];
 	size_t		player_pos[2];
 	char		player_dir;

@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 17:40:00 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/11/10 23:27:13 by mmourdal         ###   ########.fr       */
+/*   Updated: 2023/04/11 19:27:33 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ size_t	ft_strlen(const char *s)
 	size_t	i;
 
 	i = 0;
+	if (s == NULL)
+		return (0);
 	while (s[i])
-	{
 		i++;
-	}
 	return (i);
 }
