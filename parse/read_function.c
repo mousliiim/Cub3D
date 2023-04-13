@@ -6,13 +6,13 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 15:32:16 by mmourdal          #+#    #+#             */
-/*   Updated: 2023/04/11 00:26:50 by mmourdal         ###   ########.fr       */
+/*   Updated: 2023/04/13 02:30:41 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-char	*str_without_space(char *str)
+static char	*str_without_space(char *str)
 {
 	char	*new_str;
 	size_t	i;
@@ -38,7 +38,7 @@ char	*str_without_space(char *str)
 	return (new_str);
 }
 
-static int	ft_empty_line(char *line)
+static int	ft_empty_line(const char *line)
 {
 	int	i;
 
@@ -50,29 +50,6 @@ static int	ft_empty_line(char *line)
 	if (line[i] == '\0')
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
-}
-
-int	ft_count_line_of_file(int fd)
-{
-	int		i;
-	int		readret;
-	int		flag;
-	char	character;
-
-	readret = 1;
-	i = 0;
-	flag = 0;
-	while (readret != 0)
-	{
-		readret = read(fd, &character, 1);
-		if (readret < 0)
-			return (FAILURE);
-		if (!flag && character == '1')
-			flag = 1;
-		if (flag && character == '\n')
-			i++;
-	}
-	return (i);
 }
 
 int	ft_read_map_info(const char *map_path, t_info_map *info)
@@ -103,6 +80,23 @@ int	ft_read_map_info(const char *map_path, t_info_map *info)
 	return (SUCCESS);
 }
 
+int	loop_in_read_map(char **line, int *flag, size_t *i, t_game *game)
+{
+	if (*flag && !ft_empty_line(*line))
+		game->map[(*i)++] = *line;
+	else if (!*flag && !ft_empty_line(*line))
+	{
+		game->map[(*i)++] = *line;
+		*flag = 1;
+	}
+	else if (*flag && ft_empty_line(*line))
+		return (FAILURE);
+	else
+		free(*line);
+	*line = get_next_line(game->info_map->fd, 0);
+	return (SUCCESS);
+}
+
 int	ft_read_map(const char *map_path, t_game *game, t_info_map *info)
 {
 	int		fd_tmp;
@@ -113,30 +107,19 @@ int	ft_read_map(const char *map_path, t_game *game, t_info_map *info)
 
 	fd_tmp = open(map_path, O_RDONLY);
 	fd = info->fd;
-	if (fd == -1 || fd_tmp == -1)
-		return (info->error = MAP_ERROR, FAILURE);
+	if (fd_tmp == -1 || fd == -1)
+		return (close(info->fd), close(fd_tmp),
+			info->error = FILE_ERROR, FAILURE);
 	game->map = ft_calloc(ft_count_line_of_file(fd_tmp) + 1, sizeof(char *));
-	close(fd_tmp);
 	if (!game->map)
-		return (FAILURE);
+		return (close(fd_tmp), close(fd), info->error = MALLOC_ERROR, FAILURE);
+	close(fd_tmp);
 	i = 0;
 	flag = 0;
 	line = get_next_line(fd, 0);
 	while (line)
-	{
-		if (flag && !ft_empty_line(line))
-			game->map[i++] = line;
-		else if (!flag && !ft_empty_line(line))
-		{
-			game->map[i++] = line;
-			flag = 1;
-		}
-		else if (flag && ft_empty_line(line))
-			return (free(line), close(fd), info->error = MAP_ERROR, FAILURE);
-		else
-			free(line);
-		line = get_next_line(fd, 0);
-	}
+		if (!loop_in_read_map(&line, &flag, &i, game))
+			return (ft_free(info->map_info, 0), free(line), close(fd), FAILURE);
 	game->map[i] = NULL;
 	free(line);
 	close (fd);

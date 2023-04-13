@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 22:17:23 by mmourdal          #+#    #+#             */
-/*   Updated: 2023/04/08 18:19:48 by mmourdal         ###   ########.fr       */
+/*   Updated: 2023/04/13 02:51:53 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,7 @@ char	**ft_split(char const *s, char c, int *size)
 		if (!tab[j++])
 			return (in_case(tab, j - 1));
 	}
-	tab[j] = 0;
-	return (tab);
+	return (tab[j] = 0, tab);
 }
 
 /*

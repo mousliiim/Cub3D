@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:37:51 by mmourdal          #+#    #+#             */
-/*   Updated: 2023/04/11 19:36:11 by mmourdal         ###   ########.fr       */
+/*   Updated: 2023/04/13 00:12:51 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*ft_strjoin(char *buffer, char *str)
 		return (NULL);
 	mstr = malloc(sizeof(char) * (ft_strlen(buffer) + ft_strlen(str) + 1));
 	if (!mstr)
-		return (NULL);
+		return (free(buffer), NULL);
 	i = -1;
 	while (buffer[++i])
 		mstr[i] = buffer[i];

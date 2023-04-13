@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 15:31:22 by mmourdal          #+#    #+#             */
-/*   Updated: 2023/04/10 21:45:54 by mmourdal         ###   ########.fr       */
+/*   Updated: 2023/04/13 03:07:32 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ static int	start_parsing(const char *map_name, t_info_map *info, t_game *game)
 {
 	if (!get_info_map(map_name, info))
 		return (FAILURE);
-	// A PARTIR D'ICI LE PARSING DES INFORMATIONS DE LA MAP EST BON
-	// ON PASSE AU PARSING DE LA MAP
 	if (!get_map(map_name, game, info))
 		return (ft_free_error_map(info, game), FAILURE);
 	return (SUCCESS);

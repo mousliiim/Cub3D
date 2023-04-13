@@ -14,7 +14,7 @@ OBJS_BONUS	= ${BONUS:.c=.o}
 HEADERS	= ./
  
 .c.o	:
-		@cc -Wall -Wextra -Werror -I ${HEADERS} -c $< -o ${<:.c=.o}
+		@cc -Wall -g3 -Wextra -Werror -I ${HEADERS} -c $< -o ${<:.c=.o}
  
 all : ${NAME}
  

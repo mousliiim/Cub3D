@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 03:15:30 by mmourdal          #+#    #+#             */
-/*   Updated: 2023/04/10 01:21:40 by mmourdal         ###   ########.fr       */
+/*   Updated: 2023/04/13 02:46:39 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,22 @@
 
 void	ft_free_error_map(t_info_map *info, t_game *game)
 {
-	ft_free_double_array(info->texture);
-	ft_free_double_array(game->map);
-	free(game->map);
-	get_next_line(-1, 1);
-}
-
-void	ft_free(char **str, int i)
-{
-	while (--i >= 0)
-		free(str[i]);
+	if (info->error == FILE_ERROR)
+	{
+		ft_free(info->map_info, 0);
+		ft_free(info->texture, 0);
+		get_next_line(FREE_SR_GNL, 1);
+		return ;
+	}
+	ft_free(info->texture, 0);
+	if (info->error == MAP_ERROR)
+	{
+		ft_free(game->map, 0);
+		free(game->map);
+	}
+	if (info->error == MALLOC_ERROR)
+		ft_free(info->map_info, 0);
+	get_next_line(FREE_SR_GNL, 1);
 }
 
 void	ft_free_texture(char **texture)
@@ -39,7 +45,7 @@ void	ft_free_texture(char **texture)
 	}
 }
 
-void	ft_free_double_array(char **array)
+void	ft_free(char **array, int free_array)
 {
 	int	i;
 
@@ -51,6 +57,8 @@ void	ft_free_double_array(char **array)
 		free(array[i]);
 		i++;
 	}
+	if (free_array)
+		free(array);
 }
 
 void	ft_free_split(char **array)

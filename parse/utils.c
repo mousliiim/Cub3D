@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 16:12:06 by mmourdal          #+#    #+#             */
-/*   Updated: 2023/04/10 21:58:21 by mmourdal         ###   ########.fr       */
+/*   Updated: 2023/04/13 02:30:58 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,19 @@
 
 int	check_key(char *str)
 {
-
 	if (!str)
 		return (-1);
-	if (ft_strncmp(str, "NO", 2) == SAME)
+	if (ft_strncmp(str, "NO", 3) == SAME)
 		return (0);
-	else if (ft_strncmp(str, "SO", 2) == SAME)
+	else if (ft_strncmp(str, "SO", 3) == SAME)
 		return (1);
-	else if (ft_strncmp(str, "WE", 2) == SAME)
+	else if (ft_strncmp(str, "WE", 3) == SAME)
 		return (2);
-	else if (ft_strncmp(str, "EA", 2) == SAME)
+	else if (ft_strncmp(str, "EA", 3) == SAME)
 		return (3);
-	else if (ft_strncmp(str, "F", 1) == SAME)
+	else if (ft_strncmp(str, "F", 2) == SAME)
 		return (4);
-	else if (ft_strncmp(str, "C", 1) == SAME)
+	else if (ft_strncmp(str, "C", 2) == SAME)
 		return (5);
 	else
 		return (-1);
@@ -56,22 +55,22 @@ int	rgb_color_check(char *str, t_info_map *info, int choice, int j)
 	if (!array)
 		return (FAILURE);
 	if (i != 3)
-		return (ft_free_split(array), FAILURE);
+		return (ft_free(array, 1), FAILURE);
 	i = -1;
 	while (array[++i])
 	{
 		j = -1;
 		while (array[i][++j])
 			if (!ft_isdigit(array[i][j]))
-				return (ft_free_split(array), FAILURE);
+				return (ft_free(array, 1), FAILURE);
 		if (ft_atoi(array[i]) > 255 || ft_atoi(array[i]) < 0)
-			return (ft_free_split(array), FAILURE);
+			return (ft_free(array, 1), FAILURE);
 		if (choice == FLOOR)
 			info->floor_color[i] = ft_atoi(array[i]);
 		else if (choice == CEIL)
 			info->ceil_color[i] = ft_atoi(array[i]);
 	}
-	ft_free_split(array);
+	ft_free(array, 1);
 	return (SUCCESS);
 }
 
@@ -80,7 +79,7 @@ void	ft_print_error(const int error)
 	if (error == ARG_ERROR)
 		ft_printf("%sError:%s Correct usage : ./cub3D <map.cub> \n", RED, END);
 	else if (error == FILE_ERROR)
-		ft_printf("%sError:%s File not found\n", RED, END);
+		ft_printf("%sError:%s File FD ERROR or not found\n", RED, END);
 	else if (error == MAP_ERROR)
 		ft_printf("%sError:%s Map not valid\n", RED, END);
 	else if (error == ENV_ERROR)
