@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 22:34:49 by mmourdal          #+#    #+#             */
-/*   Updated: 2023/04/13 02:58:52 by mmourdal         ###   ########.fr       */
+/*   Updated: 2023/04/13 03:25:21 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,14 @@ int	map_to_square(t_game *game)
 int	check_map(t_game *game, t_info_map *info)
 {
 	if (!size_of_map(game))
-		return (info->error = MAP_ERROR, FAILURE);
+		return (ft_free(info->map_info, 0), info->error = MAP_ERROR, FAILURE);
 	if (!check_map_content(game, -1, -1, 0))
 		return (ft_free(info->map_info, 0), info->error = MAP_ERROR, FAILURE);
 	if (!map_to_square(game))
 		return (info->error = MALLOC_ERROR, FAILURE);
 	display_all(game->info_map->map_info, game->map);
 	if (!check_map_border(game))
-		return (info->error = MAP_ERROR, FAILURE);
+		return (ft_free(info->map_info, 0), info->error = MAP_ERROR, FAILURE);
 	return (SUCCESS);
 }
 
