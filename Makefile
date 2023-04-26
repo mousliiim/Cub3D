@@ -6,7 +6,7 @@
 #    By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/02 17:59:57 by mmourdal          #+#    #+#              #
-#    Updated: 2023/04/13 03:04:42 by mmourdal         ###   ########.fr        #
+#    Updated: 2023/04/17 20:03:45 by mmourdal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,8 @@ SRC_FILES	=	$(addprefix parse/, \
 				read_function.c	utils.c parsing_map.c parsing_map_info.c utils_parsing_map.c) \
 				$(addprefix free/, \
 				free.c) \
+				$(addprefix game/, \
+				game_mlx.c	utils_mlx.c) \
 				main.c	tmp_utils.c\
 
 ################################################################################
@@ -58,7 +60,7 @@ LIB_DIR = libft
 ################################################################################
 
 CC			= cc
-MLX_FLAGS	= mlx/libmlx.a mlx/libmlx_Linux.a -L. -lXext -lX11
+MLX_FLAGS	= mlx/mlx/libmlx_Linux.a -L. -lXext -lX11
 CFLAGS		= -g3 -Wall -Wextra -Werror
 CIFLAGS		= -Iincludes -I$(LIB_DIR)/includes
 CCLIED		= -L$(LIB_DIR) -lft
@@ -69,12 +71,11 @@ MAKE		= @make --no-print-directory
 ################################################################################
 
 NAME = cub3D
-
 all : $(NAME)
 
 $(NAME) : $(OBJS_DIR) $(OBJS)
-	$(CC) $(CFLAGS) $(MLX_FLAGS) $(CIFLAGS) $(OBJS) $(CCLIED) -o $(NAME)
-
+	$(CC) $(CFLAGS) $(CIFLAGS) $(OBJS) $(MLX_FLAGS) $(CCLIED) -o $(NAME)
+	
 $(OBJS_DIR) :
 	@$(PRINT_NAME)
 	@printf "$(RED_TWO)%20s Compilation de la librairie $(END)$(WHITE)$(LIB_DIR)...\n"
@@ -91,6 +92,9 @@ $(OBJS_DIR) :
 	@sleep 0.2
 	@printf "$(RED_TWO)%21s Création du dossier $(END)$(WHITE)$(OBJS_DIR)/free...\n"
 	@mkdir $(OBJS_DIR)/free
+	@sleep 0.2
+	@printf "$(RED_TWO)%21s Création du dossier $(END)$(WHITE)$(OBJS_DIR)/game...\n"
+	@mkdir $(OBJS_DIR)/game
 	@sleep 0.2
 	@printf "$(RED_TWO)%20s Création des dossiers $(END)$(BLINK)$(WHITE)objets terminée$(END)\n\n"
 	@sleep 0.9

@@ -115,7 +115,7 @@ void	*mlx_int_new_image(t_xvar *xvar,int width, int height,int format)
     free(img);
     return ((void *)0);
   }
-  bzero(img->data,(width+32)*height*4)
+  bzero(img->data,(width+32)*height*4);
   img->image = XCreateImage(xvar->display,xvar->visual,xvar->depth,format,0,
 			    img->data,width,height,32,0);
   if (!img->image)

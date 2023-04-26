@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 22:34:49 by mmourdal          #+#    #+#             */
-/*   Updated: 2023/04/13 03:25:21 by mmourdal         ###   ########.fr       */
+/*   Updated: 2023/04/17 18:08:59 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,9 @@ int	get_map(const char *map_name, t_game *game, t_info_map *info)
 		return (FAILURE);
 	if (!check_map(game, info))
 		return (FAILURE);
-	ft_free(info->map_info, 0);
-	ft_free(game->map, 1);
-	ft_free(info->texture, 0);
-	get_next_line(FREE_SR_GNL, 1);
+	// ft_free(info->map_info, 0);
+	// ft_free(game->map, 1);
+	// ft_free(info->texture, 0);
+	// get_next_line(FREE_SR_GNL, 1);
 	return (SUCCESS);
 }

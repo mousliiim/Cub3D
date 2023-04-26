@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 15:31:22 by mmourdal          #+#    #+#             */
-/*   Updated: 2023/04/13 03:07:32 by mmourdal         ###   ########.fr       */
+/*   Updated: 2023/04/17 18:16:42 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@ static int	start_parsing(const char *map_name, t_info_map *info, t_game *game)
 	return (SUCCESS);
 }
 
+static int	start_game(t_game *game)
+{
+	if (!init_mlx(game))
+		return (ft_free_error_map(game->info_map, game), FAILURE);
+	return (SUCCESS);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	static t_info_map	info = {0};
@@ -42,5 +49,7 @@ int	main(int argc, char **argv, char **env)
 		return (ft_print_error(ARG_ERROR), FAILURE);
 	if (!start_parsing(argv[1], &info, &game))
 		return (ft_print_error(info.error), FAILURE);
+	if (!start_game(&game))
+		return (ft_print_error(MALLOC_ERROR), FAILURE);
 	return (SUCCESS);
 }

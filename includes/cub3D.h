@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 19:34:22 by mmourdal          #+#    #+#             */
-/*   Updated: 2023/04/13 03:09:41 by mmourdal         ###   ########.fr       */
+/*   Updated: 2023/04/25 20:24:32 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include <limits.h>
+# include <math.h>
 # include <stdbool.h>
 # include <stddef.h>
 # include <stdio.h>
@@ -62,6 +63,8 @@
 # define A 97
 # define D 100
 # define S 115
+# define LEFT 65361
+# define RIGHT 65363
 
 typedef enum e_texture
 {
@@ -94,6 +97,8 @@ typedef struct s_game
 	char		**map;
 	char		player_dir;
 	size_t		map_size[2];
+	double		planeX;
+	double		planeY;
 	t_moh2f		player_pos_f;
 	t_moh2i		player_pos_i;
 	t_info_map	*info_map;
@@ -126,6 +131,11 @@ void	ft_free(char **array, int free_array);
 void	ft_free_split(char **array);
 void	ft_free_texture(char **texture);
 void	ft_free_error_map(t_info_map *info, t_game *game);
+/**************** IN DIRECTORY GAME *****************/
+				/** IN FILE GAME_MLX.C **/
+int		init_mlx(t_game *game);
+int		close_x(t_game *game);
+int		deal_key(int key_symbole, t_game *game);
 
 /************ TMP UTILS NEED TO DELETE **************/
 void	display(char **map);
